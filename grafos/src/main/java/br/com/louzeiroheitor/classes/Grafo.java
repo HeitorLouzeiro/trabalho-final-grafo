@@ -96,4 +96,19 @@ class Grafo {
         return valoresConcatenado.toString();
     }
 
+    public boolean verificarSeConexo() {
+        if (adjacencias.isEmpty()) {
+            return true; // Grafo vazio é considerado conexo
+        }
+    
+        int verticeInicial = adjacencias.keySet().iterator().next(); // Pega qualquer vértice inicial
+        String resultadoBFS = buscaLargura(verticeInicial); // Realiza a BFS
+    
+        // Remove o prefixo "Busca em Largura: " da string
+        String[] verticesVisitados = resultadoBFS.substring(16).split(" - "); // Começa a substring a partir do índice 16, ignorando o prefixo
+    
+        // Verifica se todos os vértices foram visitados
+        return verticesVisitados.length == adjacencias.size(); 
+    }
+
 }

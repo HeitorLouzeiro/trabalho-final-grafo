@@ -51,8 +51,9 @@ public class Main {
         criarBotao("Inserir Aresta", KeyEvent.VK_F2, inserirArestaMenu);
         criarBotao("Remover Vértice", KeyEvent.VK_F3, removerVerticeMenu);
         criarBotao("Remover Aresta", KeyEvent.VK_F4, removerArestaMenu);
-        criarBotao("Busca em Largura (BFS)", KeyEvent.VK_F5, buscaLarguraMenu);
-        criarBotao("Visualizar Grafo", KeyEvent.VK_F12, visualizarGrafoMenu);
+        criarBotao("Visualizar Grafo", KeyEvent.VK_F5, visualizarGrafoMenu);
+        criarBotao("Busca em Largura (BFS)", KeyEvent.VK_F6, buscaLarguraMenu);
+        criarBotao("Verificar Grafo é conexo", KeyEvent.VK_F7, verificarSeConexoMenu);
         criarBotao("Sair", KeyEvent.VK_0, sair);
         frame.setLocationRelativeTo(null);
 
@@ -105,16 +106,24 @@ public class Main {
         JOptionPane.showMessageDialog(frame, "Aresta removida com sucesso!");
     };
 
+    private Runnable visualizarGrafoMenu = () -> {
+        VisualizadorGrafo visualizador = new VisualizadorGrafo(grafo);
+        visualizador.visualizarGrafo();
+    };
+
     private Runnable buscaLarguraMenu = () -> {
         int verticeInicial = Integer.parseInt(JOptionPane.showInputDialog(frame, "Digite o vértice inicial para o BFS:"));
         String resultadoBFS = grafo.buscaLargura(verticeInicial); 
         JOptionPane.showMessageDialog(frame, resultadoBFS);
     };
 
-    private Runnable visualizarGrafoMenu = () -> {
-        VisualizadorGrafo visualizador = new VisualizadorGrafo(grafo);
-        visualizador.visualizarGrafo();
+    private Runnable verificarSeConexoMenu = () -> {
+        boolean conexo = grafo.verificarSeConexo();
+
+        JOptionPane.showMessageDialog(frame, "O grafo é conexo? " + (conexo ? "Sim" : "Não"));
+
     };
+
 
     private Runnable sair = () -> System.exit(0);
 }
