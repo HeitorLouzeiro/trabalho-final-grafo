@@ -9,8 +9,9 @@ class Grafo {
     private int numVertices;
 
     public Grafo() {
-        /* 
-         * adjacencias: mapeia um vértice para uma lista de arestas que estão conectadas a ele.
+        /*
+         * adjacencias: mapeia um vértice para uma lista de arestas que estão conectadas
+         * a ele.
          * numVertices: número de vértices no grafo.
          */
         adjacencias = new HashMap<>();
@@ -35,40 +36,45 @@ class Grafo {
         numVertices--;
     }
 
-    /* 
+    /*
      * Remove a aresta entre os vértices origem e destino.
-     * removeIf: remove todos os elementos da lista que satisfazem a condição especificada.
+     * removeIf: remove todos os elementos da lista que satisfazem a condição
+     * especificada.
      */
     public void removerAresta(int origem, int destino) {
-        adjacencias.get(origem).removeIf(aresta -> aresta.destino == destino); 
+        adjacencias.get(origem).removeIf(aresta -> aresta.destino == destino);
         adjacencias.get(destino).removeIf(aresta -> aresta.destino == origem);
     }
 
     public String buscaLargura(int verticeInicial) {
-        /* 
-         * BFS (Busca em Largura) é um algoritmo de busca em grafos que começa pelo vértice raiz e 
+        /*
+         * BFS (Busca em Largura) é um algoritmo de busca em grafos que começa pelo
+         * vértice raiz e
          * explora todos os vértices vizinhos.
-         * Depois, para cada um desses vértices mais próximos, explora os seus vértices vizinhos inexplorados e assim por diante.
+         * Depois, para cada um desses vértices mais próximos, explora os seus vértices
+         * vizinhos inexplorados e assim por diante.
          * Set<Integer> visitados: conjunto de vértices visitados
-         * Queue<Integer> fila: fila de vértices a serem visitados (primeiro a entrar, primeiro a sair)
+         * Queue<Integer> fila: fila de vértices a serem visitados (primeiro a entrar,
+         * primeiro a sair)
          * StringBuilder sb: string que armazenará a saída do BFS
-         * linkedList: implementação de uma fila em Java, implementa uma lista que permite a inserção e 
+         * linkedList: implementação de uma fila em Java, implementa uma lista que
+         * permite a inserção e
          * remoção de elementos em ambas as extremidades da lista
          */
         Set<Integer> verticiesVisitados = new HashSet<>();
         Queue<Integer> fila = new LinkedList<>();
 
-        /* 
+        /*
          * Adiciona o vértice inicial na fila e marca como visitado.
          */
         fila.add(verticeInicial);
         verticiesVisitados.add(verticeInicial);
-        
+
         StringBuilder valoresConcatenado = new StringBuilder("Busca em Largura: ");
 
         // System.out.println("Busca em Largura: ");
         while (!fila.isEmpty()) {
-            /* 
+            /*
              * Poll remove o primeiro elemento da fila e o retorna.
              * O vértice atual é o primeiro da fila.
              * Imprime o vértice atual.
@@ -78,8 +84,7 @@ class Grafo {
             valoresConcatenado.append(verticeAtual);
             valoresConcatenado.append(" - ");
 
-
-            /* 
+            /*
              * Para cada vértice adjacente ao vértice atual, se ele não foi visitado,
              * adiciona na fila e marca como visitado.
              * O vértice adjacente é adicionado na fila e marcado como visitado.
@@ -100,15 +105,31 @@ class Grafo {
         if (adjacencias.isEmpty()) {
             return true; // Grafo vazio é considerado conexo
         }
-    
+
         int verticeInicial = adjacencias.keySet().iterator().next(); // Pega qualquer vértice inicial
         String resultadoBFS = buscaLargura(verticeInicial); // Realiza a BFS
-    
+
         // Remove o prefixo "Busca em Largura: " da string
-        String[] verticesVisitados = resultadoBFS.substring(16).split(" - "); // Começa a substring a partir do índice 16, ignorando o prefixo
-    
+        String[] verticesVisitados = resultadoBFS.substring(16).split(" - "); // Começa a substring a partir do índice
+                                                                              // 16, ignorando o prefixo
+
         // Verifica se todos os vértices foram visitados
-        return verticesVisitados.length == adjacencias.size(); 
+        return verticesVisitados.length == adjacencias.size();
     }
 
+    // Método para calcular o grau de um vértice específico
+    /* 
+     * O grau de um vértice é o número de arestas conectadas a ele.
+     * Se o vértice não for encontrado, retorna -1.
+     * Se o vértice for encontrado, retorna o número de arestas conectadas a ele.
+     * Se o vértice for encontrado, mas não tiver arestas conectadas a ele, retorna 0.
+     */
+    public int grauDeVerticie(int vertice) {
+        if (adjacencias.containsKey(vertice)) {
+            return adjacencias.get(vertice).size();
+        } else {
+            System.out.println("Vértice não encontrado.");
+            return -1;
+        }
+    }
 }

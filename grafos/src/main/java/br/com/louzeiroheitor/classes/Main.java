@@ -54,6 +54,7 @@ public class Main {
         criarBotao("Visualizar Grafo", KeyEvent.VK_F5, visualizarGrafoMenu);
         criarBotao("Busca em Largura (BFS)", KeyEvent.VK_F6, buscaLarguraMenu);
         criarBotao("Verificar Grafo é conexo", KeyEvent.VK_F7, verificarSeConexoMenu);
+        criarBotao("Mostrar Grau de um Verticie.", KeyEvent.VK_F8, grauDeVerticieMenu);
         criarBotao("Sair", KeyEvent.VK_0, sair);
         frame.setLocationRelativeTo(null);
 
@@ -119,9 +120,14 @@ public class Main {
 
     private Runnable verificarSeConexoMenu = () -> {
         boolean conexo = grafo.verificarSeConexo();
-
         JOptionPane.showMessageDialog(frame, "O grafo é conexo? " + (conexo ? "Sim" : "Não"));
 
+    };
+
+    private Runnable grauDeVerticieMenu = () -> {
+        int vertice = Integer.parseInt(JOptionPane.showInputDialog(frame, "Digite o vértice para verificar o grau:"));
+        int grau = grafo.grauDeVerticie(vertice);
+        JOptionPane.showMessageDialog(frame, "O grau do vértice " + vertice + " é " + grau);
     };
 
 
