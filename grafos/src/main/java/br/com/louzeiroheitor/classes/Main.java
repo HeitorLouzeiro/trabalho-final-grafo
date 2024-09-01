@@ -56,6 +56,7 @@ public class Main {
         criarBotao("Mostrar Grau de um Verticie.", KeyEvent.VK_F7, grauDeVerticieMenu);
         criarBotao("Busca em Largura (BFS)", KeyEvent.VK_F8, buscaLarguraMenu);
         criarBotao("Busca em Profundidade (DFS)", KeyEvent.VK_F9, buscaProfundidadeMenu);
+        criarBotao("Matriz de adjacencia", KeyEvent.VK_F10, matrizAdjacenciasMenu);
         criarBotao("Sair", KeyEvent.VK_0, sair);
         frame.setLocationRelativeTo(null);
 
@@ -136,6 +137,28 @@ public class Main {
         int verticeInicial = Integer.parseInt(JOptionPane.showInputDialog(frame, "Digite o vértice inicial para o DFS:"));
         String resultadoDFS = grafo.buscaProfundidade(verticeInicial); 
         JOptionPane.showMessageDialog(frame, resultadoDFS);
+    };
+
+    private Runnable matrizAdjacenciasMenu = () -> {
+        int[][] matriz = grafo.matrizAdjacencias(); // Obtém a matriz de adjacências do grafo
+        String msg = "Matriz de Adjacência:\n";
+        msg += "  | ";
+        // Adiciona os índices das colunas
+        for (int j = 0; j < matriz[0].length; j++) {
+            msg += " " + j + " ";
+            
+        }
+        msg += "\n";
+        
+        // Adiciona as linhas da matriz
+        for (int i = 0; i < matriz.length; i++) {
+            msg += i + "|";
+            for (int j = 0; j < matriz[i].length; j++) {
+                msg += " " + matriz[i][j] + " ";
+            }
+            msg += "\n";
+        }
+        JOptionPane.showMessageDialog(frame, msg); // Exibe a matriz de adjacências em uma caixa de diálogo
     };
 
     private Runnable sair = () -> System.exit(0);

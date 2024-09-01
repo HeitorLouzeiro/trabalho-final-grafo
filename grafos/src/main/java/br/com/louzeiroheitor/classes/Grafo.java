@@ -178,4 +178,39 @@ class Grafo {
         }
         return valoresConcatenado.toString();
     }
+
+    // Método para converter para matriz de adjacências
+    /* 
+     * A matriz de adjacências é uma matriz quadrada que representa um grafo.
+     * Cada linha e coluna da matriz representa um vértice.
+     * O valor da matriz é 1 se houver uma aresta entre os vértices correspondentes.
+     * Caso contrário, o valor é 0.
+     * É representado por uma matriz de tamanho n x n, onde n é o número de vértices.
+     * que vai de n = 0 a n-1.
+     */
+    public int[][] matrizAdjacencias() {
+        int n = adjacencias.size();
+        int[][] matrizAdjacencia = new int[n][n];
+
+        List<Integer> vertices = new ArrayList<>(adjacencias.keySet());
+        Map<Integer, Integer> indiceVertice = new HashMap<>();
+
+        // Atribuir um índice a cada vértice
+        for (int i = 0; i < vertices.size(); i++) {
+            indiceVertice.put(vertices.get(i), i);
+        }
+
+        // Preencher a matriz de adjacência
+        for (int origem : adjacencias.keySet()) {
+            for (Aresta aresta : adjacencias.get(origem)) {
+                int i = indiceVertice.get(origem);
+                int j = indiceVertice.get(aresta.destino);
+                matrizAdjacencia[i][j] = aresta.peso;
+            }
+        }
+
+        return matrizAdjacencia;
+    }
+
+
 }
