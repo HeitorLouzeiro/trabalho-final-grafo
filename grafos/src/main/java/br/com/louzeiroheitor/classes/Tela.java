@@ -12,13 +12,13 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
-public class Main {
+public class Tela {
 
     private static Grafo grafo = new Grafo();
     private JFrame frame;
 
     public static void main(String[] args) {
-        Main main = new Main();
+        Tela main = new Tela();
         main.createAndShowGUI();
     }
 
