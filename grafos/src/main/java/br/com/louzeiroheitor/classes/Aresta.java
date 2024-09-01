@@ -8,21 +8,4 @@ public class Aresta {
         this.destino = destino;
         this.peso = peso;
     }
-
-    public int getDestino() {
-        return destino;
-    }
-
-    public void setDestino(int destino) {
-        this.destino = destino;
-    }
-
-    public int getPeso() {
-        return peso;
-    }
-
-    public void setPeso(int peso) {
-        this.peso = peso;
-    }
-    
 }

@@ -12,7 +12,7 @@ import java.util.Map;
 import javax.swing.JFrame;
 
 // Classes do JGraphX para mostrar o grafo de forma visual circular
-import com.mxgraph.layout.mxCircleLayout;
+import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
 
@@ -85,7 +85,7 @@ public class VisualizadorGrafo {
         }
 
         // Organizar os vértices em um layout circular
-        mxCircleLayout formatoDoGrafico = new mxCircleLayout(graficoDoGrafo);
+        mxHierarchicalLayout formatoDoGrafico = new mxHierarchicalLayout(graficoDoGrafo);
         formatoDoGrafico.execute(graficoDoGrafo.getDefaultParent());
 
         // Exibir o gráfico em um JFrame
