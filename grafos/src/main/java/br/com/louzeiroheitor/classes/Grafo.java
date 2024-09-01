@@ -192,8 +192,8 @@ class Grafo {
         int n = adjacencias.size();
         int[][] matrizAdjacencia = new int[n][n];
 
-        List<Integer> vertices = new ArrayList<>(adjacencias.keySet());
-        Map<Integer, Integer> indiceVertice = new HashMap<>();
+        List<Integer> vertices = new ArrayList<>(adjacencias.keySet()); // Lista de vértices
+        Map<Integer, Integer> indiceVertice = new HashMap<>(); // Mapeia um vértice para um índice
 
         // Atribuir um índice a cada vértice
         for (int i = 0; i < vertices.size(); i++) {

@@ -3,6 +3,8 @@ package br.com.louzeiroheitor.classes;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -20,7 +22,7 @@ public class Main {
         main.createAndShowGUI();
     }
 
-    private void createAndShowGUI() {      
+    private void createAndShowGUI() {
 
         grafo.inserirVertice(1);
         grafo.inserirVertice(2);
@@ -33,15 +35,15 @@ public class Main {
         grafo.inserirVertice(9);
         grafo.inserirVertice(10);
 
-        grafo.inserirAresta(1, 2, 1);
+        grafo.inserirAresta(1, 2, 2);
         grafo.inserirAresta(1, 3, 1);
-        grafo.inserirAresta(1, 4, 1);
-        grafo.inserirAresta(2, 5, 1);
+        grafo.inserirAresta(1, 4, 4);
+        grafo.inserirAresta(2, 5, 3);
         grafo.inserirAresta(2, 6, 1);
-        grafo.inserirAresta(3, 7, 1);
+        grafo.inserirAresta(3, 7, 6);
         grafo.inserirAresta(3, 8, 1);
-        grafo.inserirAresta(4, 9, 1);
-        grafo.inserirAresta(4, 10, 1);
+        grafo.inserirAresta(4, 9, 5);
+        grafo.inserirAresta(4, 10, 9);
 
         frame = new JFrame("Menu de Opções do Grafo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -114,46 +116,50 @@ public class Main {
         visualizador.visualizarGrafo();
     };
 
-    
     private Runnable verificarSeConexoMenu = () -> {
         boolean conexo = grafo.verificarSeConexo();
         JOptionPane.showMessageDialog(frame, "O grafo é conexo? " + (conexo ? "Sim" : "Não"));
 
     };
-    
+
     private Runnable grauDeVerticieMenu = () -> {
         int vertice = Integer.parseInt(JOptionPane.showInputDialog(frame, "Digite o vértice para verificar o grau:"));
         int grau = grafo.grauDeVerticie(vertice);
         JOptionPane.showMessageDialog(frame, "O grau do vértice " + vertice + " é " + grau);
     };
-    
+
     private Runnable buscaLarguraMenu = () -> {
-        int verticeInicial = Integer.parseInt(JOptionPane.showInputDialog(frame, "Digite o vértice inicial para o BFS:"));
-        String resultadoBFS = grafo.buscaLargura(verticeInicial); 
+        int verticeInicial = Integer
+                .parseInt(JOptionPane.showInputDialog(frame, "Digite o vértice inicial para o BFS:"));
+        String resultadoBFS = grafo.buscaLargura(verticeInicial);
         JOptionPane.showMessageDialog(frame, resultadoBFS);
     };
 
     private Runnable buscaProfundidadeMenu = () -> {
-        int verticeInicial = Integer.parseInt(JOptionPane.showInputDialog(frame, "Digite o vértice inicial para o DFS:"));
-        String resultadoDFS = grafo.buscaProfundidade(verticeInicial); 
+        int verticeInicial = Integer
+                .parseInt(JOptionPane.showInputDialog(frame, "Digite o vértice inicial para o DFS:"));
+        String resultadoDFS = grafo.buscaProfundidade(verticeInicial);
         JOptionPane.showMessageDialog(frame, resultadoDFS);
     };
 
     private Runnable matrizAdjacenciasMenu = () -> {
         int[][] matriz = grafo.matrizAdjacencias(); // Obtém a matriz de adjacências do grafo
         String msg = "Matriz de Adjacência:\n";
+
+        // Lista de vértices para exibir na matriz
+        List<Integer> vertices = new ArrayList<>(grafo.adjacencias.keySet());
+
+        // Cabeçalho da matriz (números dos vértices)
         msg += "  | ";
-        // Adiciona os índices das colunas
-        for (int j = 0; j < matriz[0].length; j++) {
-            msg += " " + j + " ";
-            
+        for (int j = 0; j < vertices.size(); j++) {
+            msg += " " + vertices.get(j) + " ";
         }
         msg += "\n";
-        
-        // Adiciona as linhas da matriz
-        for (int i = 0; i < matriz.length; i++) {
-            msg += i + "|";
-            for (int j = 0; j < matriz[i].length; j++) {
+
+        // Linhas da matriz com valores dos vértices
+        for (int i = 0; i < vertices.size(); i++) {
+            msg += vertices.get(i) + "|"; // Exibe o vértice da linha atual
+            for (int j = 0; j < vertices.size(); j++) {
                 msg += " " + matriz[i][j] + " ";
             }
             msg += "\n";
