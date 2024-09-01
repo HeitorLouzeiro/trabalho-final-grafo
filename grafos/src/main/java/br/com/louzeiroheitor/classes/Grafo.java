@@ -46,6 +46,7 @@ class Grafo {
         adjacencias.get(destino).removeIf(aresta -> aresta.destino == origem);
     }
 
+    // BSF (Busca em Largura || Breadth-First Search || Caminho em amplitude)
     public String buscaLargura(int verticeInicial) {
         /*
          * BFS (Busca em Largura) é um algoritmo de busca em grafos que começa pelo
@@ -131,5 +132,50 @@ class Grafo {
             System.out.println("Vértice não encontrado.");
             return -1;
         }
+    }
+
+    // DFS (Busca em Profundidade || Depth-First Search || Caminho em profundidade)
+    public String buscaProfundidade(int verticeInicial){
+        /* 
+         * DFS (Busca em Profundidade) é um algoritmo de busca em grafos que começa pelo vértice raiz e 
+         * explora todos os vértices vizinhos.
+         * Depois, para cada um desses vértices mais próximos, explora os seus vértices vizinhos inexplorados e assim por diante.
+         * Set<Integer> visitados: conjunto de vértices visitados
+         * Stack<Integer> pilha: pilha de vértices a serem visitados (último a entrar, primeiro a sair)
+         * StringBuilder sb: string que armazenará a saída do DFS
+         * 
+         */
+        Set<Integer> verticesVisitados = new HashSet<>();
+        Stack<Integer> pilha = new Stack<>();
+
+        StringBuilder valoresConcatenado = new StringBuilder("Caminho em Profundidade: ");
+
+        // push adiciona um elemento no topo da pilha
+        pilha.push(verticeInicial);
+        verticesVisitados.add(verticeInicial);
+
+        while (!pilha.isEmpty()) {
+            int verticeAtual = pilha.pop(); // pop remove o elemento no topo da pilha e o retorna
+            valoresConcatenado.append(verticeAtual);
+            valoresConcatenado.append(" - ");
+
+            /* 
+             * Para cada vértice adjacente ao vértice atual, se ele não foi visitado,
+             * adiciona na pilha e marca como visitado.
+             * O vértice adjacente é adicionado na pilha e marcado como visitado.
+             */
+            for (int i = 0; i < adjacencias.get(verticeAtual).size(); i++) {
+
+                // Aresta é um objeto que contém o destino e o peso da aresta
+                Aresta aresta = adjacencias.get(verticeAtual).get(i);
+
+                // Se o vértice adjacente não foi visitado, adiciona na pilha e marca como visitado
+                if (!verticesVisitados.contains(aresta.destino)) {
+                    verticesVisitados.add(aresta.destino);
+                    pilha.push(aresta.destino);// push adiciona um elemento no topo da pilha
+                }
+            }
+        }
+        return valoresConcatenado.toString();
     }
 }

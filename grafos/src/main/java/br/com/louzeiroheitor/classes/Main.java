@@ -52,9 +52,10 @@ public class Main {
         criarBotao("Remover Vértice", KeyEvent.VK_F3, removerVerticeMenu);
         criarBotao("Remover Aresta", KeyEvent.VK_F4, removerArestaMenu);
         criarBotao("Visualizar Grafo", KeyEvent.VK_F5, visualizarGrafoMenu);
-        criarBotao("Busca em Largura (BFS)", KeyEvent.VK_F6, buscaLarguraMenu);
-        criarBotao("Verificar Grafo é conexo", KeyEvent.VK_F7, verificarSeConexoMenu);
-        criarBotao("Mostrar Grau de um Verticie.", KeyEvent.VK_F8, grauDeVerticieMenu);
+        criarBotao("Verificar Grafo é conexo", KeyEvent.VK_F6, verificarSeConexoMenu);
+        criarBotao("Mostrar Grau de um Verticie.", KeyEvent.VK_F7, grauDeVerticieMenu);
+        criarBotao("Busca em Largura (BFS)", KeyEvent.VK_F8, buscaLarguraMenu);
+        criarBotao("Busca em Profundidade (DFS)", KeyEvent.VK_F9, buscaProfundidadeMenu);
         criarBotao("Sair", KeyEvent.VK_0, sair);
         frame.setLocationRelativeTo(null);
 
@@ -112,24 +113,30 @@ public class Main {
         visualizador.visualizarGrafo();
     };
 
+    
+    private Runnable verificarSeConexoMenu = () -> {
+        boolean conexo = grafo.verificarSeConexo();
+        JOptionPane.showMessageDialog(frame, "O grafo é conexo? " + (conexo ? "Sim" : "Não"));
+
+    };
+    
+    private Runnable grauDeVerticieMenu = () -> {
+        int vertice = Integer.parseInt(JOptionPane.showInputDialog(frame, "Digite o vértice para verificar o grau:"));
+        int grau = grafo.grauDeVerticie(vertice);
+        JOptionPane.showMessageDialog(frame, "O grau do vértice " + vertice + " é " + grau);
+    };
+    
     private Runnable buscaLarguraMenu = () -> {
         int verticeInicial = Integer.parseInt(JOptionPane.showInputDialog(frame, "Digite o vértice inicial para o BFS:"));
         String resultadoBFS = grafo.buscaLargura(verticeInicial); 
         JOptionPane.showMessageDialog(frame, resultadoBFS);
     };
 
-    private Runnable verificarSeConexoMenu = () -> {
-        boolean conexo = grafo.verificarSeConexo();
-        JOptionPane.showMessageDialog(frame, "O grafo é conexo? " + (conexo ? "Sim" : "Não"));
-
+    private Runnable buscaProfundidadeMenu = () -> {
+        int verticeInicial = Integer.parseInt(JOptionPane.showInputDialog(frame, "Digite o vértice inicial para o DFS:"));
+        String resultadoDFS = grafo.buscaProfundidade(verticeInicial); 
+        JOptionPane.showMessageDialog(frame, resultadoDFS);
     };
-
-    private Runnable grauDeVerticieMenu = () -> {
-        int vertice = Integer.parseInt(JOptionPane.showInputDialog(frame, "Digite o vértice para verificar o grau:"));
-        int grau = grafo.grauDeVerticie(vertice);
-        JOptionPane.showMessageDialog(frame, "O grau do vértice " + vertice + " é " + grau);
-    };
-
 
     private Runnable sair = () -> System.exit(0);
 }
